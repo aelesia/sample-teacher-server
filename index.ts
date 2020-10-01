@@ -1,16 +1,21 @@
 import 'dotenv/config'
 
-import express from 'express'
+import Koa from 'koa'
+import Router from 'koa-router'
 
 import { Cfg } from './src/app/config/Config'
 import { _200_OKAY } from './src/consts/StatusCodes'
 
-const app = express()
+const app = new Koa()
+const router = new Router()
 
-app.listen(Cfg.PORT, () => console.info(`Server started: ${Cfg.PORT}`))
+app.listen(Cfg.PORT)
 
-app.get('/helloworld', (req, res) => {
-  return res.status(_200_OKAY).send({
-    message: 'Hello World',
-  })
+router.get('/', (ctx, next) => {
+  ctx.status = _200_OKAY
+  ctx.body = {
+    message: 'hello world',
+  }
 })
+
+app.use(router.routes()).use(router.allowedMethods())
