@@ -1,27 +1,22 @@
 {
-  "name": "service",
+  "name": "sample-teacher-server",
   "version": "0.0.0",
   "description": "Scaffolding for a serverless typescript dotenv project",
-  "main": "handler.js",
+  "main": "index.js",
   "scripts": {
     "env": "npx @siliconjungles/rn-scripts replace_files path=env/${ENV}/.cfg.${ENV}",
-    "_index": "tsc && node index.js",
-    "_start": "tsc && serverless offline start",
-    "index": "ENV=${ENV:-local} yarn env && yarn _index",
+    "_start": "node-ts index.ts",
     "start": "ENV=${ENV:-local} yarn env && yarn _start",
-    "deploy_aws": "yarn env && tsc && serverless deploy",
-    "remove_aws": "yarn env && serverless remove",
     "test": "jest --setupFiles dotenv/config",
     "test_coverage": "yarn test --collectCoverage",
-    "lint": "eslint . --ext .ts",
-    "lint_fix": "yarn lint --fix",
-    "compile": "tsc && yarn lint"
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint_fix": "yarn lint --fix --plugin unused-imports --rule 'unused-imports/no-unused-imports-ts: warn'",
+    "compile": "tsc --noEmit && yarn lint"
   },
-  "author": "",
+  "author": "aelesia",
   "license": "MIT",
   "devDependencies": {
     "@siliconjungles/rn-scripts": "^0.0.0-42",
-    "@types/aws-lambda": "^8.10.39",
     "@types/express": "^4.17.2",
     "@types/faker": "^4.1.12",
     "@types/jest": "^24.0.25",
@@ -31,20 +26,17 @@
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-simple-import-sort": "^5.0.3",
     "faker": "^4.1.0",
     "jest": "^24.9.0",
     "prettier": "^1.19.1",
-    "serverless": "^1.59.3",
-    "serverless-dotenv-plugin": "^2.1.1",
-    "serverless-offline": "^5.12.1",
-    "serverless-plugin-include-dependencies": "^4.0.0",
     "ts-jest": "^24.2.0",
-    "typescript": "^3.9.6"
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.3"
   },
   "dependencies": {
-    "@aelesia/commons": "^0.4.0-next.24",
-    "@aelesia/http": "^0.1.6",
-    "aws-sdk": "^2.528.0",
+    "@aelesia/commons": "^0.5.0-next.40",
+    "express": "^4.17.1",
     "dotenv": "^8.2.0"
   },
   "repository": ""

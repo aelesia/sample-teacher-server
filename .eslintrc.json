@@ -20,7 +20,8 @@
 	},
 	"plugins": [
 		"@typescript-eslint",
-		"prettier"
+		"prettier",
+    "simple-import-sort"
 	],
 	"rules": {
 		"no-unused-vars": "off",
@@ -28,7 +29,7 @@
 		"no-empty": "warn",
 		"consistent-return": "error",
 		"@typescript-eslint/member-delimiter-style": "off",
-		"@typescript-eslint/explicit-function-return-type": "warn",
+		"@typescript-eslint/explicit-function-return-type": "off",
 		"@typescript-eslint/camelcase": "off",
 		"@typescript-eslint/class-name-casing": "off",
 		"@typescript-eslint/ban-ts-ignore": "off",
@@ -36,6 +37,10 @@
 		"@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/no-empty-function": "warn",
 		"prettier/prettier": "warn",
-		"prefer-const": "off"
-	}
+		"prefer-const": "off",
+    "no-shadow": "warn",
+    "dot-notation": "off",
+    "simple-import-sort/sort": "warn",
+    "no-console":["warn", { "allow": ["info", "warn", "error"] }]
+  }
 }
