@@ -1,0 +1,19 @@
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless
+.build
+
+.idea/*
+!.idea/dictionaries
+
+*.js
+!jest.*.js
+
+yarn-error.log
+dist
+coverage
+/db/
+/.env

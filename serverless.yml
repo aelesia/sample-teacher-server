@@ -1,0 +1,85 @@
+custom:
+  service: ${file(./package.json):name}
+  prefix: ${self:custom.service}-${env:ENVIRONMENT}-
+  dotenv:
+    file: file(./.env)
+    basePath: ./
+
+service: ${self:custom.service}
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${env:ENVIRONMENT}
+  region: ${env:AWSC_REGION}
+  timeout: 15
+  environment:
+    SERVICE: ${self:custom.service}
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        - { Fn::GetAtt: ["${env:DB_SAMPLE}", 'Arn'] }
+
+functions:
+  insert:
+    handler: dist/handler._insert
+    events:
+      - http:
+          path: /insert
+          method: post
+
+  select:
+    handler: dist/handler._select
+    events:
+      - http:
+          path: /select
+          method: get
+
+  scan:
+    handler: dist/handler._scan
+    events:
+      - http:
+          path: /scan
+          method: get
+
+  update:
+    handler: dist/handler._update
+    events:
+      - http:
+          path: /update
+          method: post
+
+  del:
+    handler: dist/handler._del
+    events:
+      - http:
+          path: /del
+          method: post
+
+
+resources:
+  Resources:
+    sample:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: ${env:DB_DEL_POLICY}
+      Properties:
+        TableName: ${self:custom.prefix}${env:DB_SAMPLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+  - serverless-plugin-include-dependencies
