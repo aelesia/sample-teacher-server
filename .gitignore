@@ -9,13 +9,9 @@ jspm_packages
 .idea/*
 !.idea/dictionaries
 
-*.js
-!jest.*.js
-
 yarn-error.log
 dist
 coverage
-/db/
 /.env
 database.sqlite
-ormconfig.json
+ormconfig.js

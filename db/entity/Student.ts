@@ -1,7 +1,9 @@
-import { Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, Index, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+
+import { Teaches } from './Teaches'
 
 @Entity()
-export class Teacher {
+export class Student {
   @PrimaryGeneratedColumn('increment')
   id!: number
 
@@ -18,6 +20,9 @@ export class Teacher {
   @Column({ type: 'varchar', length: 32, unique: true })
   @Index()
   email!: string
+
+  @OneToMany((type) => Teaches, (teaches) => teaches.student)
+  public teaches_by!: Teaches[]
 
   @CreateDateColumn()
   created_date!: Date

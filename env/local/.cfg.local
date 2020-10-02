@@ -1,2 +1,2 @@
 env/local/.env.local => .env
-env/local/.ormconfig.local.json => .ormconfig.json
+env/local/ormconfig.local.js => ormconfig.js
