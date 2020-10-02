@@ -22,11 +22,20 @@ export class Teacher {
   email!: string
 
   @OneToMany((type) => Teaches, (teaches) => teaches.teacher)
-  public teaches!: Teaches[]
+  teaches!: Teaches[]
 
   @CreateDateColumn()
   created_date!: Date
 
   @UpdateDateColumn()
   updated_date!: Date
+
+  constructor(initialValue?: Partial<Teacher>) {
+    if (initialValue) {
+      Object.keys(initialValue).forEach((it) => {
+        // @ts-ignore
+        this[it] = initialValue[it]
+      })
+    }
+  }
 }
