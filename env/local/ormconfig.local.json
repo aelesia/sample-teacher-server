@@ -1,8 +1,11 @@
 {
-   "type": "sqlite",
-   "database": "database.sqlite",
-   "synchronize": true,
-   "logging": false,
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "postgres",
+  "password": "postgres",
+  "database": "sample-teacher-server",
+  "autoSchemaSync": true,
    "entities": [
       "src/entity/**/*.ts"
    ],
