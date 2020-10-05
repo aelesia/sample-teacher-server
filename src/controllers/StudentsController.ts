@@ -4,7 +4,7 @@ import { createConnection, getRepository } from 'typeorm'
 import { Student } from '../../db/entity/Student'
 import { Students } from '../../db/repository/Repository'
 import { router } from '../app/config/Spring'
-import { _200_OKAY, _204_CREATED } from '../consts/StatusCodes'
+import { _200_OKAY, _204_NO_CONTENT } from '../consts/StatusCodes'
 import { validateStudent } from '../validators/Validators'
 
 export type CreateStudent = Pick<Student, 'first_name' | 'last_name' | 'email'>
@@ -27,14 +27,12 @@ router.get('/students/:uuid', async (ctx) => {
   ctx.status = _200_OKAY
 })
 
-router.post('/students/register', async (ctx, next) => {
+router.post('/students/register', async (ctx) => {
   const body = ctx.request.body
   if (!validateStudent(body)) {
     throw TypeError()
   }
   const newStudent = Students.create(body)
-  console.log(newStudent)
-  console.log(JSON.stringify(newStudent))
   ctx.status = _200_OKAY
   ctx.body = newStudent
 })

@@ -7,6 +7,7 @@ import { Cfg } from './src/app/config/Config'
 import { app, router } from './src/app/config/Spring'
 
 require('./src/controllers/StudentsController')
+require('./src/controllers/APIController')
 ;(async () => {
   await initRepositories()
   app.listen(Cfg.PORT)

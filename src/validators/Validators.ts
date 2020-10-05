@@ -30,3 +30,19 @@ export function validateName(value: unknown): value is name {
   }
   return false
 }
+
+export function isString(value: unknown): value is string {
+  if (typeof value === 'string') {
+    return true
+  }
+  return false
+}
+
+export function isStringArray(value: unknown): value is string[] {
+  if (!(value instanceof Array)) {
+    return false
+  } else if (value.length > 0 && typeof value[0] !== 'string') {
+    return false
+  }
+  return true
+}

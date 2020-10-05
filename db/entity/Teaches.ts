@@ -1,9 +1,10 @@
-import { CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { CreateDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 
 import { Student } from './Student'
 import { Teacher } from './Teacher'
 
 @Entity()
+@Index(['teacher', 'student'], { unique: true })
 export class Teaches {
   @PrimaryGeneratedColumn('increment')
   id!: number

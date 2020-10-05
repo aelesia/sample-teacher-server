@@ -14,3 +14,11 @@ Port 4000: `PORT=4000 yarn start`
 
 - local: `ENV=local yarn start`
 - develop: `ENV=local yarn start`
+
+# Database
+
+## Modifying an entity
+
+- Modify the entity first
+- Run yarn db:generate -n <NameOfMigration>
+- Run yarn db:migrate
