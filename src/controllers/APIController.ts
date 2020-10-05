@@ -2,11 +2,12 @@ import { Throw } from '@aelesia/commons'
 import { createConnection, getRepository, In } from 'typeorm'
 
 import { Student } from '../../db/entity/Student'
+import { Suspension } from '../../db/entity/Suspension'
 import { Teaches } from '../../db/entity/Teaches'
-import { Students, Teachers, TeachesRepo } from '../../db/repository/Repository'
+import { Students, Suspensions, Teachers, TeachesRepo } from '../../db/repository/Repository'
 import { router } from '../app/config/Spring'
 import { _200_OKAY, _204_NO_CONTENT } from '../consts/StatusCodes'
-import { registerStudentsToTeacher } from '../services/APIServices'
+import { registerStudentsToTeacher, suspendStudent } from '../services/APIServices'
 import { validateStudent } from '../validators/Validators'
 
 export type CreateStudent = Pick<Student, 'first_name' | 'last_name' | 'email'>
@@ -31,6 +32,15 @@ type Request2 = {
 }
 router.get('/api/commonstudents', async (ctx) => {
   const body: Request = ctx.params
+
+  ctx.status = _204_NO_CONTENT
+})
+
+router.post('/api/suspend', async (ctx) => {
+  const body: { student: string } = ctx.request.body
+
+  const student = await Students.findOneOrFail({ where: { email: body.student } })
+  await suspendStudent(student)
 
   ctx.status = _204_NO_CONTENT
 })

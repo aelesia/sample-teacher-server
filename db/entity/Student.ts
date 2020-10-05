@@ -1,4 +1,13 @@
-import { Column, CreateDateColumn, Entity, Index, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import {
+  AfterLoad,
+  Column,
+  CreateDateColumn,
+  Entity,
+  Index,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm'
 
 import { BaseEntity } from '../BaseEntity'
 import { Suspension } from './Suspension'
@@ -23,15 +32,25 @@ export class Student extends BaseEntity<Student> {
   @Index()
   email!: string
 
-  @OneToMany((type) => Teaches, (teaches) => teaches.student)
-  teaches_by!: Teaches[]
+  @OneToMany((type) => Teaches, (teaches) => teaches.student, { eager: true })
+  teaches_by!: Promise<Teaches[]>
 
   @OneToMany((type) => Suspension, (suspension) => suspension.student)
-  suspensions!: Suspension[]
+  suspensions!: Promise<Suspension[]>
 
   @CreateDateColumn()
   created_date!: Date
 
   @UpdateDateColumn()
   updated_date!: Date
+
+  @AfterLoad()
+  async isSuspended(): Promise<boolean> {
+    for (const suspension of await this.suspensions) {
+      if (suspension.active) {
+        return true
+      }
+    }
+    return false
+  }
 }
