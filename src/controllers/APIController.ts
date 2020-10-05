@@ -16,13 +16,21 @@ type Request = {
   teacher: string
   students: string[]
 }
-
 router.post('/api/register', async (ctx) => {
   const body: Request = ctx.request.body
 
   const teacher = await Teachers.findOneOrFail({ where: { email: body.teacher } })
   const students = await Students.find({ where: { email: In(body.students) } })
   await registerStudentsToTeacher(students, teacher)
+
+  ctx.status = _204_NO_CONTENT
+})
+
+type Request2 = {
+  teachers: string[]
+}
+router.get('/api/commonstudents', async (ctx) => {
+  const body: Request = ctx.params
 
   ctx.status = _204_NO_CONTENT
 })

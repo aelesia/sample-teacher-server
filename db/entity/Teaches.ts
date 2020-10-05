@@ -1,11 +1,12 @@
 import { CreateDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 
+import { BaseEntity } from '../BaseEntity'
 import { Student } from './Student'
 import { Teacher } from './Teacher'
 
 @Entity()
 @Index(['teacher', 'student'], { unique: true })
-export class Teaches {
+export class Teaches extends BaseEntity<Teaches> {
   @PrimaryGeneratedColumn('increment')
   id!: number
 
@@ -20,13 +21,4 @@ export class Teaches {
 
   @UpdateDateColumn()
   updated_date!: Date
-
-  constructor(initialValue?: Partial<Teaches>) {
-    if (initialValue) {
-      Object.keys(initialValue).forEach((it) => {
-        // @ts-ignore
-        this[it] = initialValue[it]
-      })
-    }
-  }
 }
