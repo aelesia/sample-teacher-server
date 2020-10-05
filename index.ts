@@ -1,21 +1,14 @@
 import 'dotenv/config'
 
-import Koa from 'koa'
-import Router from 'koa-router'
+import bodyParser from 'koa-bodyparser'
 
+import { initRepositories } from './db/repository/Repository'
 import { Cfg } from './src/app/config/Config'
-import { _200_OKAY } from './src/consts/StatusCodes'
+import { app, router } from './src/app/config/Spring'
 
-const app = new Koa()
-const router = new Router()
-
-app.listen(Cfg.PORT)
-
-router.get('/', (ctx, next) => {
-  ctx.status = _200_OKAY
-  ctx.body = {
-    message: 'hello world',
-  }
-})
-
-app.use(router.routes()).use(router.allowedMethods())
+require('./src/controllers/StudentsController')
+;(async () => {
+  await initRepositories()
+  app.listen(Cfg.PORT)
+  app.use(bodyParser()).use(router.routes()).use(router.allowedMethods())
+})()

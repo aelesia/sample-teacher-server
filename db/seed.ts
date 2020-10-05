@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 
-import { Arr, Rand } from '@aelesia/commons'
+import { Rand } from '@aelesia/commons'
 import { createConnection } from 'typeorm'
 
 import { StudentFactory, TeacherFactory } from '../factories/Factories'
@@ -14,11 +14,13 @@ createConnection()
     for (const student of students) {
       await connection.manager.save(student)
     }
+    console.info(`Created ${students.length} students`)
 
     const teachers = TeacherFactory.array(10).map((it) => new Teacher(it))
     for (const teacher of teachers) {
       await connection.manager.save(teacher)
     }
+    console.info(`Created ${teachers.length} teachers`)
 
     for (const student of students) {
       for (const teacher of teachers) {
@@ -32,5 +34,6 @@ createConnection()
         }
       }
     }
+    console.info(`Created student / teacher relationships`)
   })
   .catch((error) => console.log(error))
