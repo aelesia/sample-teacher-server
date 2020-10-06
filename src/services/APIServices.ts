@@ -33,23 +33,26 @@ export async function suspendStudent(student: Student): Promise<void> {
 }
 
 export async function commonStudents(teachers: Teacher[]): Promise<Student[]> {
-  let commonStudents2 = await Promise.all((await teachers[0].teaches).map(async (it) => await it.student))
-  console.log(commonStudents2)
-  for (const teacher of teachers) {
-    const teacherStudents = await Promise.all((await teacher.teaches).map(async (it) => await it.student))
-    commonStudents2 = commonStudents2.filter((it) => {
-      return teacherStudents.some((it2) => it2.id === it.id)
-    })
-  }
+  const ids = teachers.map((it) => it.id)
+  const student_ids: { student_id: number }[] = await createQueryBuilder()
+    .select(['t.student_id'])
+    .from(Teaches, 't')
+    .where('t.teacher_id in (:...ids)', { ids })
+    .groupBy('t.student_id')
+    .having('count(*) = :count', { count: ids.length })
+    .execute()
 
-  return commonStudents2
+  const students: any[] = await createQueryBuilder()
+    .select()
+    .from(Student, '')
+    .where('id in (:...ids)', { ids: student_ids.map((it) => it.student_id) })
+    .execute()
+
+  return students.map((it) => new Student(it))
 }
 
-export async function retrieveNonSuspendedStudents(teacher: Teacher): Promise<Student[]> {
-  const students = (await teacher.teaches).map((it) => it.student)
-  const nonSuspendedStudents = (await Suspensions.find({ where: { student: In(students), active: true } })).map(
-    (it) => it.student
-  )
-  students.filter((it) => nonSuspendedStudents.some((it2) => it.id !== it2.id))
-  throw new NotImplementedErr()
+export async function findStudentsByTeacherEmail(email: string): Promise<Student[]> {
+  return Teachers.findOneOrFail({ where: { email } })
+    .then((t) => t.teaches)
+    .then((t) => Promise.all(t.map((it) => it.student)))
 }

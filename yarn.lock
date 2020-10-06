@@ -2,14 +2,12 @@
 # yarn lockfile v1
 
 
-"@aelesia/commons@^0.5.0-next.40":
-  version "0.5.0-next.40"
-  resolved "https://registry.yarnpkg.com/@aelesia/commons/-/commons-0.5.0-next.40.tgz#d6d9f3a23675de20764f8aed994deed2b2ef6528"
-  integrity sha512-2hw4+Pxsekr7vn5Zngw23o1t0WX4T2qkfp+ZgH/VtV33gK+O0zz9AV2e2mUH0gOSXhUjpfavvpXnI7kDlb0qiQ==
+"@aelesia/commons@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@aelesia/commons/-/commons-0.5.0.tgz#4c236feeabf15d992482a3d3f11179f853247351"
+  integrity sha512-iaEw3cCgcRmbQEyg8fgAqzxpqXHMYGj7d2k3w17TObtfBRvv4yr19JNWF1QjiU9tQiyN30X95BMNz5URawRXnA==
   dependencies:
-    "@types/lodash" "^4.14.161"
     dayjs "^1.8.28"
-    lodash "^4.17.20"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.5.5":
   version "7.5.5"
@@ -871,11 +869,6 @@
     "@types/keygrip" "*"
     "@types/koa-compose" "*"
     "@types/node" "*"
-
-"@types/lodash@^4.14.161":
-  version "4.14.161"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.161.tgz#a21ca0777dabc6e4f44f3d07f37b765f54188b18"
-  integrity sha512-EP6O3Jkr7bXvZZSZYlsgt5DIjiGr0dXP1/jVEwVLTFgg0d+3lWVQkRavYVQszV7dYUwvg0B8R0MBDpcmXg7XIA==
 
 "@types/mime@*":
   version "2.0.1"

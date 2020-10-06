@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   Index,
+  JoinTable,
   ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -28,5 +29,6 @@ export class Suspension extends BaseEntity<Suspension> {
   updated_date!: Date
 
   @ManyToOne((type) => Student, (student) => student.suspensions, { eager: true })
+  @JoinTable()
   student!: Student
 }
