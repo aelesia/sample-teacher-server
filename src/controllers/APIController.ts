@@ -8,13 +8,8 @@ import { Students, Suspensions, Teachers, TeachesRepo } from '../../db/repositor
 import { In } from '../../db/Wrapper'
 import { router } from '../app/config/Spring'
 import { _200_OKAY, _204_NO_CONTENT } from '../consts/StatusCodes'
-import {
-  commonStudents,
-  findStudentsByTeacherEmail,
-  registerStudentsToTeacher,
-  suspendStudent,
-} from '../services/APIServices'
-import { extractStudentEmailsFromNotifications } from '../utils/Util'
+import { commonStudents, registerStudentsToTeacher, suspendStudent } from '../services/APIServices'
+import { extractMentionedEmails } from '../utils/Util'
 import { validateStudent } from '../validators/Validators'
 
 export type CreateStudent = Pick<Student, 'first_name' | 'last_name' | 'email'>
@@ -65,12 +60,8 @@ router.post('/api/suspend', async (ctx) => {
 router.post('/api/retrievefornotifications', async (ctx) => {
   const body: { teacher: string; notification: string } = ctx.request.body
 
-  console.log(await Students.find({ where: { email: In([null]) } }))
-
-  const teacherStudents = await findStudentsByTeacherEmail(body.teacher)
-  const mentionedStudents = await Students.find({
-    where: { email: In(extractStudentEmailsFromNotifications(body.notification)) },
-  })
+  const teacherStudents = await Teachers.findStudents(body.teacher)
+  const mentionedStudents = await Students.findInEmail(extractMentionedEmails(body.notification))
   const allStudents = [...teacherStudents, ...mentionedStudents]
   const suspended = await Suspensions.find({ where: { student: In(allStudents.map((it) => it.id)), active: true } })
   const suspendedStudents = suspended.map((it) => it.student)

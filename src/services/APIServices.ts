@@ -50,9 +50,3 @@ export async function commonStudents(teachers: Teacher[]): Promise<Student[]> {
 
   return students.map((it) => new Student(it))
 }
-
-export async function findStudentsByTeacherEmail(email: string): Promise<Student[]> {
-  return Teachers.findOneOrFail({ where: { email } })
-    .then((t) => t.teaches)
-    .then((t) => Promise.all(t.map((it) => it.student)))
-}

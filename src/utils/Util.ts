@@ -4,7 +4,7 @@ export function testUtil(): string {
   return 'test'
 }
 
-export function extractStudentEmailsFromNotifications(notification: string): string[] {
+export function extractMentionedEmails(notification: string): string[] {
   return notification.split(' ').reduce<string[]>((prev, word) => {
     if (word.startsWith('@')) {
       const possibleEmail = word.substring(1)
@@ -14,4 +14,10 @@ export function extractStudentEmailsFromNotifications(notification: string): str
     }
     return prev
   }, [])
+}
+
+// Yes I do actually want an Object
+// eslint-disable-next-line @typescript-eslint/ban-types
+export function mapKey<T extends Object, K extends keyof T>(arr: T[], key: K): T[K][] {
+  return arr.map((it) => it[key])
 }

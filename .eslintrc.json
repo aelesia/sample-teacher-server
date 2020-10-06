@@ -39,6 +39,7 @@
     "@typescript-eslint/no-empty-function": "warn",
     "@typescript-eslint/no-var-requires": "warn",
     "@typescript-eslint/no-inferrable-types": "off",
+    "@typescript-eslint/ban-types": "warn",
     "prettier/prettier": "warn",
 		"prefer-const": "off",
     "no-shadow": "warn",
