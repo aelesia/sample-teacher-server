@@ -32,7 +32,7 @@ export class Student extends BaseEntity<Student> {
   @Index()
   email!: string
 
-  @OneToMany((type) => Teaches, (teaches) => teaches.student, { eager: true })
+  @OneToMany((type) => Teaches, (teaches) => teaches.student)
   teaches_by!: Promise<Teaches[]>
 
   @OneToMany((type) => Suspension, (suspension) => suspension.student)
@@ -44,7 +44,6 @@ export class Student extends BaseEntity<Student> {
   @UpdateDateColumn()
   updated_date!: Date
 
-  @AfterLoad()
   async isSuspended(): Promise<boolean> {
     for (const suspension of await this.suspensions) {
       if (suspension.active) {

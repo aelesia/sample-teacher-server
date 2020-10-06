@@ -1,4 +1,4 @@
-import { testUtil } from '../src/utils/Util.test'
+import { testUtil } from '../src/utils/Util'
 
 describe('Test', () => {
   test('Returns correct value', async () => {

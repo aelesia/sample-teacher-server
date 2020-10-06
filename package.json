@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "env": "npx @siliconjungles/rn-scripts replace_files path=env/${ENV}/.cfg.${ENV}",
-    "_start": "PORT=${PORT:-3000} ts-node index.ts",
+    "_start": "PORT=${PORT:-3000} ts-node --log-error index.ts",
     "start": "ENV=${ENV:-local} yarn env && yarn _start",
     "test": "jest --setupFiles dotenv/config",
     "test_coverage": "yarn test --collectCoverage",
@@ -50,6 +50,7 @@
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^9.4.0",
+    "lodash": "^4.17.20",
     "pg": "^8.3.3",
     "reflect-metadata": "^0.1.10",
     "sqlite3": "^4.0.3",

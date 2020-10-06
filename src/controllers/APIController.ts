@@ -1,4 +1,4 @@
-import { Throw } from '@aelesia/commons'
+import { Err, Throw } from '@aelesia/commons'
 import { createConnection, getRepository, In } from 'typeorm'
 
 import { Student } from '../../db/entity/Student'
@@ -7,7 +7,7 @@ import { Teaches } from '../../db/entity/Teaches'
 import { Students, Suspensions, Teachers, TeachesRepo } from '../../db/repository/Repository'
 import { router } from '../app/config/Spring'
 import { _200_OKAY, _204_NO_CONTENT } from '../consts/StatusCodes'
-import { registerStudentsToTeacher, suspendStudent } from '../services/APIServices'
+import { commonStudents, registerStudentsToTeacher, suspendStudent } from '../services/APIServices'
 import { validateStudent } from '../validators/Validators'
 
 export type CreateStudent = Pick<Student, 'first_name' | 'last_name' | 'email'>
@@ -28,12 +28,21 @@ router.post('/api/register', async (ctx) => {
 })
 
 type Request2 = {
-  teachers: string[]
+  teachers: string | string[]
 }
 router.get('/api/commonstudents', async (ctx) => {
-  const body: Request = ctx.params
+  const body: Request2 = ctx.query
 
-  ctx.status = _204_NO_CONTENT
+  const emails = typeof body.teachers === 'string' ? [body.teachers] : body.teachers
+  const [teachers, count] = await Teachers.findAndCount({ where: { email: In(emails) } })
+  if (count < emails.length) {
+    throw Error('One or more TeacherIDs is invalid')
+  }
+  const common = await commonStudents(teachers)
+
+  console.log(common)
+  ctx.status = _200_OKAY
+  ctx.body = common
 })
 
 router.post('/api/suspend', async (ctx) => {
@@ -43,4 +52,16 @@ router.post('/api/suspend', async (ctx) => {
   await suspendStudent(student)
 
   ctx.status = _204_NO_CONTENT
+})
+
+router.post('/api/retrievefornotifications', async (ctx) => {
+  const body: { teacher: string; notification: string } = ctx.request.body
+
+  // const student = await Students.findOneOrFail({ where: { email: body.student } })
+  // await suspendStudent(student)
+
+  ctx.status = _200_OKAY
+  ctx.body = {
+    recipients: [],
+  }
 })
