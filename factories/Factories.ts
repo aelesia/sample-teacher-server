@@ -5,7 +5,7 @@ import { Student } from '../db/entity/Student'
 import { Teacher } from '../db/entity/Teacher'
 
 export const StudentFactory = new FakerFactory(
-  (): Student => {
+  (): Omit<Student, 'isSuspended' | 'suspensions' | 'teaches_by'> => {
     const date = Faker.date.past(1)
     return {
       email: Faker.internet.email(),
@@ -15,13 +15,12 @@ export const StudentFactory = new FakerFactory(
       created_date: date,
       updated_date: date,
       uuid: Faker.random.uuid(),
-      teaches_by: undefined as any,
     }
   }
 )
 
 export const TeacherFactory = new FakerFactory(
-  (): Teacher => {
+  (): Omit<Teacher, 'teaches'> => {
     const date = Faker.date.past(1)
     return {
       email: Faker.internet.email(),
@@ -31,7 +30,6 @@ export const TeacherFactory = new FakerFactory(
       created_date: date,
       updated_date: date,
       uuid: Faker.random.uuid(),
-      teaches: undefined as any,
     }
   }
 )

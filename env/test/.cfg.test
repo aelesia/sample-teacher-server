@@ -1,1 +1,2 @@
 env/test/.env.test => .env
+env/test/ormconfig.test.js => ormconfig.js
