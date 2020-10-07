@@ -91,9 +91,8 @@ describe('APIController', () => {
           notification: `Hey everybody @${student_miche.email} @${student_agnes.email}`,
         })
       expect(response.status).toBe(_400_CLIENT_ERROR)
-      expect(response.body.error).not.toBeNull()
-      expect(response.body.error.name).toEqual('EntityNotFound')
-      expect(response.body.error.message).not.toBeNull()
+      expect(response.body.message).not.toBeNull()
+      expect(response.body.message).toContain('EntityNotFound')
     })
 
     test('still only 2 students on teacher joe despite mentioning his own students', async () => {

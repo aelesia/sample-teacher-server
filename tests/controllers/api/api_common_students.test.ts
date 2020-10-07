@@ -83,8 +83,7 @@ describe('/api/commonstudents', () => {
   test('incorrect teacher email', async () => {
     const response = await request(app.callback()).get('/api/commonstudents?teachers=wrong@email.com')
     expect(response.status).toBe(_400_CLIENT_ERROR)
-    expect(response.body.error).not.toBeNull()
-    expect(response.body.error.name).toEqual('EntityOneOrMoreNotFoundError')
-    expect(response.body.error.message).not.toBeNull()
+    expect(response.body.message).not.toBeNull()
+    expect(response.body.message).toContain('EntityOneOrMoreNotFoundError')
   })
 })

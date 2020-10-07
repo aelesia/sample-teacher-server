@@ -36,10 +36,8 @@ describe('/api/suspend', () => {
         student: 'something@somewhere.com',
       })
       expect(response.status).toBe(_400_CLIENT_ERROR)
-      expect(response.body.error).not.toBeNull()
-      expect(response.body.error.name).toEqual('EntityNotFound')
-      expect(response.body.error.message).not.toBeNull()
-      console.info(response.body.error.message)
+      expect(response.body.message).not.toBeNull()
+      expect(response.body.message).toContain('EntityNotFound')
     })
   )
 
@@ -58,10 +56,8 @@ describe('/api/suspend', () => {
         student: student.email,
       })
       expect(response.status).toBe(_409_CONFLICT)
-      expect(response.body.error).not.toBeNull()
-      expect(response.body.error.name).toEqual('IllegalActionError')
-      expect(response.body.error.message).not.toBeNull()
-      console.info(response.body.error.message)
+      expect(response.body.message).not.toBeNull()
+      expect(response.body.message).toContain('IllegalActionError')
     })
   )
 
