@@ -18,7 +18,7 @@ export class Teacher extends BaseEntity<Teacher> {
   @Column({ type: 'varchar', length: 32 })
   last_name!: string
 
-  @Column({ type: 'varchar', length: 32, unique: true })
+  @Column({ type: 'varchar', length: 64, unique: true })
   @Index()
   email!: string
 

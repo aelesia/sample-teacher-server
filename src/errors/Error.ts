@@ -1,4 +1,6 @@
 import { NotImplementedErr } from '@aelesia/commons/dist/src/error/Error'
+import { EntityTarget } from 'typeorm'
+import { EntityNotFoundError } from 'typeorm/error/EntityNotFoundError'
 
 /**
  * Errors in this class are due to bad user inputs
@@ -20,5 +22,15 @@ export class IllegalActionError extends ClientError {
     super(`IllegalActionError: ${msg ?? ''}`)
     this.name = 'IllegalActionError'
     Object.setPrototypeOf(this, IllegalActionError.prototype)
+  }
+}
+
+export class EntityOneOrMoreNotFoundError<T extends EntityTarget<any>> extends EntityNotFoundError {
+  constructor(entityClass: EntityTarget<any>, message: string) {
+    super(entityClass, message)
+    this.name = 'EntityOneOrMoreNotFoundError'
+    // @ts-ignore
+    this.message = `Entity ${entityClass['name']}: ${message}`
+    Object.setPrototypeOf(this, EntityNotFoundError.prototype)
   }
 }

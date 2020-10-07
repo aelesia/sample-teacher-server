@@ -1,15 +1,15 @@
-import { Err } from '@aelesia/commons'
 import { createQueryBuilder } from 'typeorm'
 
 import { Student } from '../../db/entity/Student'
 import { Suspension } from '../../db/entity/Suspension'
 import { Teacher } from '../../db/entity/Teacher'
 import { Teaches } from '../../db/entity/Teaches'
-import { Suspensions } from '../../db/repository/Repository'
+import { Students, Suspensions, Teachers, TeachesRepo } from '../../db/repository/Repository'
+import { IllegalActionError } from '../errors/Error'
 
 export async function suspendStudent(student: Student): Promise<void> {
   if (await student.isSuspended()) {
-    throw new Err.IllegalArgumentErr('Student is already suspended')
+    throw new IllegalActionError('Student is already suspended')
   }
 
   await Suspensions.save(

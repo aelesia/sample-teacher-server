@@ -30,10 +30,7 @@ router.get('/api/commonstudents', async (ctx) => {
   const body: Request2 = ctx.query
   const emails = typeof body.teachers === 'string' ? [body.teachers] : body.teachers
 
-  const [teachers, count] = await Teachers.findAndCount({ where: { email: In(emails) } })
-  if (count < emails.length) {
-    throw Error('One or more TeacherIDs is invalid')
-  }
+  const teachers = await Teachers.findInEmailOrFail(emails)
   const common = await commonStudents(teachers)
 
   ctx.status = _200_OKAY

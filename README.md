@@ -20,5 +20,5 @@ Port 4000: `PORT=4000 yarn start`
 ## Modifying an entity
 
 - Modify the entity first
-- Run yarn db:generate -n <NameOfMigration>
-- Run yarn db:migrate
+- Run `yarn db:generate -n <NameOfMigration>`
+- Run `yarn db:migrate`
