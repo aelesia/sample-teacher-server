@@ -1,13 +1,13 @@
 import request from 'supertest'
-import { initialiseTestTransactions, runInTransaction } from 'typeorm-test-transactions'
+import { initialiseTestTransactions } from 'typeorm-test-transactions'
 
 import { Student } from '../../../db/entity/Student'
 import { Teacher } from '../../../db/entity/Teacher'
 import { Teaches } from '../../../db/entity/Teaches'
-import { initRepositories, Students, Suspensions, Teachers, TeachesRepo } from '../../../db/repository/Repository'
+import { initRepositories, Students, Teachers, TeachesRepo } from '../../../db/repository/Repository'
 import { StudentFactory, TeacherFactory } from '../../../factories/Factories'
 import { app } from '../../../src/app/config/Spring'
-import { _200_OKAY, _204_NO_CONTENT, _400_CLIENT_ERROR } from '../../../src/consts/StatusCodes'
+import { _200_OKAY, _400_CLIENT_ERROR } from '../../../src/consts/StatusCodes'
 
 /**
  * Note, if test fails due to duplicate key, please ensure that DB is empty before running

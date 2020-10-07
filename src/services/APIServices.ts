@@ -4,7 +4,7 @@ import { Student } from '../../db/entity/Student'
 import { Suspension } from '../../db/entity/Suspension'
 import { Teacher } from '../../db/entity/Teacher'
 import { Teaches } from '../../db/entity/Teaches'
-import { Students, Suspensions, Teachers, TeachesRepo } from '../../db/repository/Repository'
+import { Suspensions } from '../../db/repository/Repository'
 import { IllegalActionError } from '../errors/Error'
 
 export async function suspendStudent(student: Student): Promise<void> {

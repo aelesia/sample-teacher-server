@@ -1,3 +1,5 @@
+import lodash from 'lodash'
+
 import { Student } from '../../db/entity/Student'
 import { Students, Suspensions, Teachers, TeachesRepo } from '../../db/repository/Repository'
 import { In } from '../../db/Wrapper'
@@ -49,11 +51,12 @@ router.post('/api/suspend', async (ctx) => {
 })
 
 router.post('/api/retrievefornotifications', async (ctx) => {
-  const body: { teacher: string; notification: string } = ctx.request.body
+  const req: { teacher: string; notification: string } = ctx.request.body
 
-  const teacherStudents = await Teachers.findStudents(body.teacher)
-  const mentionedStudents = await Students.findInEmail(extractMentionedEmails(body.notification))
-  const allStudents = [...teacherStudents, ...mentionedStudents]
+  const teacherStudents = await Teachers.findStudents(req.teacher)
+  const mentionedStudents = await Students.findInEmail(extractMentionedEmails(req.notification))
+  const allStudents = lodash.uniqBy([...teacherStudents, ...mentionedStudents], 'id')
+
   const suspended = await Suspensions.find({ where: { student: In(allStudents.map((it) => it.id)), active: true } })
   const suspendedStudents = suspended.map((it) => it.student)
 
@@ -61,6 +64,6 @@ router.post('/api/retrievefornotifications', async (ctx) => {
 
   ctx.status = _200_OKAY
   ctx.body = {
-    recipients: whitelistStudents,
+    recipients: whitelistStudents.map((it) => it.email),
   }
 })

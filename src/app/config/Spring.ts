@@ -13,7 +13,6 @@ export const app = (() => {
   const app = new Koa()
 
   require('../../controllers/APIController')
-  require('../../controllers/StudentsController')
 
   app
     .use(bodyParser())

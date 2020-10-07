@@ -1,5 +1,4 @@
 import { EntityRepository, Repository } from 'typeorm'
-import { EntityNotFoundError } from 'typeorm/error/EntityNotFoundError'
 
 import { EntityOneOrMoreNotFoundError } from '../../../src/errors/Error'
 import { Student } from '../../entity/Student'

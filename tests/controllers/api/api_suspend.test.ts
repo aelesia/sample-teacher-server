@@ -3,10 +3,8 @@ import { initialiseTestTransactions, runInTransaction } from 'typeorm-test-trans
 
 import { Student } from '../../../db/entity/Student'
 import { Suspension } from '../../../db/entity/Suspension'
-import { Teacher } from '../../../db/entity/Teacher'
-import { Teaches } from '../../../db/entity/Teaches'
-import { initRepositories, Students, Suspensions, Teachers, TeachesRepo } from '../../../db/repository/Repository'
-import { StudentFactory, TeacherFactory } from '../../../factories/Factories'
+import { initRepositories, Students, Suspensions } from '../../../db/repository/Repository'
+import { StudentFactory } from '../../../factories/Factories'
 import { app } from '../../../src/app/config/Spring'
 import { _204_NO_CONTENT, _400_CLIENT_ERROR, _409_CONFLICT } from '../../../src/consts/StatusCodes'
 
