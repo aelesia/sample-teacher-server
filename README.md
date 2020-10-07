@@ -18,7 +18,9 @@ Port 4000: `PORT=4000 yarn start`
 # Database
 
 ## Modifying an entity
-
 - Modify the entity first
-- Run `yarn db:generate -n <NameOfMigration>`
-- Run `yarn db:migrate`
+- Run `ENV=<env> yarn db:generate -n <NameOfMigration>`
+- Run `ENV=<env> yarn db:migrate`
+
+## Seeding
+- Run `ENV=<env> yarn db:seed`
