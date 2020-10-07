@@ -2,7 +2,6 @@ import { EntityRepository, Repository } from 'typeorm'
 
 import { Student } from '../../entity/Student'
 import { Teacher } from '../../entity/Teacher'
-import { In } from '../../Wrapper'
 import { Teachers } from '../Repository'
 
 @EntityRepository(Teacher)

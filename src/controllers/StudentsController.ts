@@ -1,10 +1,7 @@
-import { Throw } from '@aelesia/commons'
-import { createConnection, getRepository } from 'typeorm'
-
 import { Student } from '../../db/entity/Student'
 import { Students } from '../../db/repository/Repository'
 import { router } from '../app/config/Spring'
-import { _200_OKAY, _204_NO_CONTENT } from '../consts/StatusCodes'
+import { _200_OKAY } from '../consts/StatusCodes'
 import { validateStudent } from '../validators/Validators'
 
 export type CreateStudent = Pick<Student, 'first_name' | 'last_name' | 'email'>

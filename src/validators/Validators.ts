@@ -1,5 +1,3 @@
-import { Regex } from '@aelesia/commons'
-
 import { CreateStudent } from '../controllers/StudentsController'
 
 type uuid = string

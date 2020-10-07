@@ -2,17 +2,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  Index,
   JoinTable,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
 
 import { BaseEntity } from '../BaseEntity'
 import { Student } from './Student'
-import { Teacher } from './Teacher'
 
 @Entity()
 export class Suspension extends BaseEntity<Suspension> {
