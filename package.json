@@ -53,11 +53,12 @@
     "koa-router": "^9.4.0",
     "lodash": "^4.17.20",
     "pg": "^8.3.3",
-    "reflect-metadata": "^0.1.10",
+    "reflect-metadata": "^0.1.13",
     "sqlite3": "^4.0.3",
     "supertest": "^5.0.0",
-    "typeorm": "0.2.28",
-    "typeorm-naming-strategies": "^2.0.0"
+    "typeorm": "^0.2.28",
+    "typeorm-naming-strategies": "^2.0.0",
+    "typeorm-test-transactions": "^1.13.0"
   },
   "repository": ""
 }

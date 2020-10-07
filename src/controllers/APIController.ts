@@ -1,4 +1,7 @@
 import { Err, Throw } from '@aelesia/commons'
+import { ParameterizedContext } from 'koa'
+import * as Router from 'koa-router'
+import { IRouterParamContext } from 'koa-router'
 import { createConnection, getRepository } from 'typeorm'
 
 import { Student } from '../../db/entity/Student'

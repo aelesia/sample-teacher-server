@@ -3,7 +3,7 @@ import { env, envJSON } from './_Env'
 type EnvType = {
   PORT: number
   DEBUG: boolean
-  TEST: string
+  ENVIRONMENT: string
 }
 
 export const EnvStr = env<EnvType>()
