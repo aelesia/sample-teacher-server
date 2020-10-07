@@ -25,7 +25,7 @@ export class IllegalActionError extends ClientError {
   }
 }
 
-export class EntityOneOrMoreNotFoundError<T extends EntityTarget<any>> extends EntityNotFoundError {
+export class EntityOneOrMoreNotFoundError extends EntityNotFoundError {
   constructor(entityClass: EntityTarget<any>, message: string) {
     super(entityClass, message)
     this.name = 'EntityOneOrMoreNotFoundError'

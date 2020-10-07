@@ -22,7 +22,7 @@ export class Teacher extends BaseEntity<Teacher> {
   @Index()
   email!: string
 
-  @OneToMany((type) => Teaches, (teaches) => teaches.teacher)
+  @OneToMany((_type) => Teaches, (teaches) => teaches.teacher)
   teaches!: Promise<Teaches[]>
 
   @CreateDateColumn()

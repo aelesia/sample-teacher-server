@@ -10,10 +10,10 @@ export class Teaches extends BaseEntity<Teaches> {
   @PrimaryGeneratedColumn('increment')
   id!: number
 
-  @ManyToOne((type) => Teacher, (teacher) => teacher.teaches)
+  @ManyToOne((_type) => Teacher, (teacher) => teacher.teaches)
   teacher!: Promise<Teacher>
 
-  @ManyToOne((type) => Student, (student) => student.teaches_by)
+  @ManyToOne((_type) => Student, (student) => student.teaches_by)
   student!: Promise<Student>
 
   @CreateDateColumn()

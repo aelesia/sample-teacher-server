@@ -25,7 +25,7 @@ export class Suspension extends BaseEntity<Suspension> {
   @UpdateDateColumn()
   updated_date!: Date
 
-  @ManyToOne((type) => Student, (student) => student.suspensions, { eager: true })
+  @ManyToOne((_type) => Student, (student) => student.suspensions, { eager: true })
   @JoinTable()
   student!: Student
 }

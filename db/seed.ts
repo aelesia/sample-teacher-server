@@ -36,4 +36,4 @@ createConnection()
     }
     console.info(`Created student / teacher relationships`)
   })
-  .catch((error) => console.log(error))
+  .catch((error) => console.error(error))

@@ -23,10 +23,10 @@ export class Student extends BaseEntity<Student> {
   @Index()
   email!: string
 
-  @OneToMany((type) => Teaches, (teaches) => teaches.student)
+  @OneToMany((_type) => Teaches, (teaches) => teaches.student)
   teaches_by!: Promise<Teaches[]>
 
-  @OneToMany((type) => Suspension, (suspension) => suspension.student)
+  @OneToMany((_type) => Suspension, (suspension) => suspension.student)
   suspensions!: Promise<Suspension[]>
 
   @CreateDateColumn()

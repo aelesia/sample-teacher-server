@@ -2,8 +2,6 @@ import 'reflect-metadata'
 
 import { createConnection } from 'typeorm'
 
-//
-
 createConnection()
-  .then(async (connection) => {})
-  .catch((error) => console.log(error))
+  .then(async () => {})
+  .catch((error) => console.error(error))
