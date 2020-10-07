@@ -1,12 +1,12 @@
 import lodash from 'lodash'
 
-import { Student } from '../../db/entity/Student'
-import { Students, Suspensions, Teachers, TeachesRepo } from '../../db/repository/Repository'
-import { In } from '../../db/Wrapper'
-import { router } from '../app/config/Spring'
-import { _200_OKAY, _204_NO_CONTENT } from '../consts/StatusCodes'
-import { commonStudents, suspendStudent } from '../services/APIServices'
-import { extractMentionedEmails } from '../utils/Util'
+import { Student } from '../../../db/entity/Student'
+import { Students, Suspensions, Teachers, TeachesRepo } from '../../../db/repository/Repository'
+import { In } from '../../../db/Wrapper'
+import { router } from '../../app/config/Spring'
+import { _200_OKAY, _204_NO_CONTENT } from '../../consts/StatusCodes'
+import { extractMentionedEmails } from '../../utils/Util'
+import { commonStudents, suspendStudent } from './APIServices'
 
 export type CreateStudent = Pick<Student, 'first_name' | 'last_name' | 'email'>
 export type StudentResponse = Omit<Student, 'id' | 'created_date' | 'updated_date' | 'teaches_by'>

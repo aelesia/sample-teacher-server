@@ -12,7 +12,7 @@ export const router = new Router()
 export const app = (() => {
   const app = new Koa()
 
-  require('../../controllers/APIController')
+  require('../../controllers/api/APIController')
 
   app
     .use(bodyParser())

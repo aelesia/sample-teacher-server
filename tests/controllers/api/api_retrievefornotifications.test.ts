@@ -9,6 +9,10 @@ import { StudentFactory, TeacherFactory } from '../../../factories/Factories'
 import { app } from '../../../src/app/config/Spring'
 import { _200_OKAY, _400_CLIENT_ERROR } from '../../../src/consts/StatusCodes'
 
+/**
+ * - Note, if test fails due to duplicate key, please ensure that DB is empty before running
+ * - Possible improper teardown of DB connection
+ */
 describe('APIController', () => {
   beforeAll(async () => {
     initialiseTestTransactions()
