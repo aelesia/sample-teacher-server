@@ -1,12 +1,6 @@
-import { CreateStudent } from '../controllers/StudentsController'
-
 type uuid = string
 type email = string
 type name = string
-
-export function validateStudent(params: Partial<CreateStudent>): params is CreateStudent {
-  return validateEmail(params.email) && validateName(params.first_name) && validateName(params.last_name)
-}
 
 export function validateUUID(value: unknown): value is uuid {
   if (typeof value === 'string' && value.length === 36) {

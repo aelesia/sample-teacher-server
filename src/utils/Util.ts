@@ -1,9 +1,5 @@
 import { Regex } from '@aelesia/commons'
 
-export function testUtil(): string {
-  return 'test'
-}
-
 export function extractMentionedEmails(notification: string): string[] {
   return notification.split(' ').reduce<string[]>((prev, word) => {
     if (word.startsWith('@')) {
