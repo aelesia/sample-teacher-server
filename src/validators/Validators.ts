@@ -1,40 +1,37 @@
-type uuid = string
-type email = string
-type name = string
+import { Regex } from '@aelesia/commons'
+import { IllegalArgumentErr } from '@aelesia/commons/dist/src/error/Error'
 
-export function validateUUID(value: unknown): value is uuid {
-  if (typeof value === 'string' && value.length === 36) {
-    return true
+export function validateUUID(value: unknown): void {
+  if (typeof value !== 'string' || value.length !== 36) {
+    throw new IllegalArgumentErr(`${value} is not a uuid`)
   }
-  return false
 }
 
-export function validateEmail(value: unknown): value is email {
-  if (typeof value === 'string' && value.includes('@') && value.includes('.')) {
-    return true
+export function validateEmail(value: unknown): void {
+  if (typeof value !== 'string' || !Regex.is.email(value)) {
+    throw new IllegalArgumentErr(`${value} is not a valid email address`)
   }
-  return false
+  return
 }
 
-export function validateName(value: unknown): value is name {
-  if (typeof value === 'string') {
-    return true
+export function isString(value: unknown): void {
+  if (typeof value !== 'string') {
+    throw new IllegalArgumentErr(`${value} is not a valid string`)
   }
-  return false
+  return
 }
 
-export function isString(value: unknown): value is string {
-  if (typeof value === 'string') {
-    return true
+export function isRequired(value: unknown): void {
+  if (value == null) {
+    throw new IllegalArgumentErr(`${value} is required`)
+  } else if (value instanceof Array && value.length > 0) {
+    throw new IllegalArgumentErr(`${value} is required`)
   }
-  return false
+  return
 }
 
-export function isStringArray(value: unknown): value is string[] {
+export function isArray(value: unknown): void {
   if (!(value instanceof Array)) {
-    return false
-  } else if (value.length > 0 && typeof value[0] !== 'string') {
-    return false
+    throw new IllegalArgumentErr(`${value} is not an array`)
   }
-  return true
 }
