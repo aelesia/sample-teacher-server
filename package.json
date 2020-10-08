@@ -1,7 +1,7 @@
 {
   "name": "sample-teacher-server",
   "version": "0.0.0",
-  "description": "Scaffolding for a serverless typescript dotenv project",
+  "description": "NodeJS with TypeORM and Koa",
   "main": "index.js",
   "scripts": {
     "env": "npx @siliconjungles/rn-scripts replace_files path=env/${ENV}/.cfg.${ENV}",
@@ -27,6 +27,11 @@
     "@types/faker": "^4.1.12",
     "@types/jest": "^26.0.14",
     "@types/node": "^14.11.2",
+    "@types/koa": "^2.11.4",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-router": "^7.4.1",
+    "@types/lodash": "^4.14.161",
+    "@types/supertest": "^2.0.10",
     "@typescript-eslint/eslint-plugin": "^4.3.0",
     "@typescript-eslint/parser": "^4.3.0",
     "eslint": "^7.10.0",
@@ -37,29 +42,25 @@
     "faker": "^4.1.0",
     "jest": "^26.4.2",
     "prettier": "^2.1.2",
+    "sqlite3": "^4.0.3",
+    "supertest": "^5.0.0",
     "ts-jest": "^26.4.1",
     "ts-node": "^9.0.0",
-    "typescript": "3.9.7"
+    "typescript": "3.9.7",
+    "typeorm-test-transactions": "^1.13.0"
   },
   "dependencies": {
     "@aelesia/commons": "^0.5.0",
-    "@types/koa": "^2.11.4",
-    "@types/koa-bodyparser": "^4.3.0",
-    "@types/koa-router": "^7.4.1",
-    "@types/lodash": "^4.14.161",
-    "@types/supertest": "^2.0.10",
     "dotenv": "^8.2.0",
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^9.4.0",
     "lodash": "^4.17.20",
+    "mysql": "^2.18.1",
     "pg": "^8.3.3",
     "reflect-metadata": "^0.1.13",
-    "sqlite3": "^4.0.3",
-    "supertest": "^5.0.0",
     "typeorm": "^0.2.28",
-    "typeorm-naming-strategies": "^2.0.0",
-    "typeorm-test-transactions": "^1.13.0"
+    "typeorm-naming-strategies": "^2.0.0"
   },
   "repository": ""
 }
