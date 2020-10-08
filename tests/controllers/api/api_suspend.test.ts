@@ -1,4 +1,3 @@
-import Faker from 'faker'
 import request from 'supertest'
 import { initialiseTestTransactions, runInTransaction } from 'typeorm-test-transactions'
 

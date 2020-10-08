@@ -1,5 +1,11 @@
 # Setup
 
+## Requirements
+
+- NodeJS >=12.6.0
+- MySQL >=5.7 installed
+- yarn
+
 ## Install Dependencies
 
 - `yarn install`
@@ -8,7 +14,6 @@
 
 ### Pre-requisites
 
-- You must have MySQL >=5.7 installed
 - You must have a client capable of connecting to MySQL database and creating a new schema
 - You must have the following information available:
   - Username
@@ -82,12 +87,15 @@ OR
 
 `yarn test_coverage`
 
+# Postman
+
+Postman files are located under: `docs/postman`
+
 # Roadmap
 
 Due to time constraints and limited knowledge (this is my first time using Koa & TypeORM), the following features have not been implemented:
 
 ~~- Parameter Validation~~
-- Proper distribution build instead of using `ts-node`
 - Tests running in CI
   - It requires a DB to be setup with it
 - Tests running in full transaction mode
@@ -96,6 +104,8 @@ Due to time constraints and limited knowledge (this is my first time using Koa &
   - This is needed otherwise there might be DB pollution / test conflicts
 - Endpoints for creating students / teachers
   - This is so the app can be ran without the user having to modify the DB
+- Proper distribution build instead of using `ts-node`
+  - Unfortunately I'm having problems running .js files with typeORM.
 - Env variables need to be encrypted at minimum if checked into source control
   - As there is no sensitive information now, there is no harm checking it in now
   - However this will not be done in an actual company environment due to the risk of someone messing up and committing the file by accident.
