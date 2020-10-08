@@ -86,7 +86,7 @@ OR
 
 Due to time constraints and limited knowledge (this is my first time using Koa & TypeORM), the following features have not been implemented:
 
-- Parameter Validation
+~~- Parameter Validation~~
 - Proper distribution build instead of using `ts-node`
 - Tests running in CI
   - It requires a DB to be setup with it
