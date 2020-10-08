@@ -100,3 +100,4 @@ Due to time constraints and limited knowledge (this is my first time using Koa &
   - As there is no sensitive information now, there is no harm checking it in now
   - However this will not be done in an actual company environment due to the risk of someone messing up and committing the file by accident.
   - Ideally, the best case for handling environment variables would be through some service like Hashicorp Vault or AWS Keystore
+

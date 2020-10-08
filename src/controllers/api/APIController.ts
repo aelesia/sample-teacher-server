@@ -26,11 +26,11 @@ router.post('/api/register', async (ctx) => {
 })
 
 type Request2 = {
-  teachers: string | string[]
+  teacher: string | string[]
 }
 router.get('/api/commonstudents', async (ctx) => {
   const body: Request2 = ctx.query
-  const emails = typeof body.teachers === 'string' ? [body.teachers] : body.teachers
+  const emails = typeof body.teacher === 'string' ? [body.teacher] : body.teacher
 
   const teachers = await Teachers.findInEmailOrFail(emails)
   const common = await commonStudents(teachers)

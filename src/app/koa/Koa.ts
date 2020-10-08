@@ -15,22 +15,22 @@ export const errorHandler: Router.IMiddleware = async (ctx, next) => {
     if (err instanceof EntityOneOrMoreNotFoundError) {
       ctx.status = _400_CLIENT_ERROR
       ctx.body = {
-        message: `${err.name} ${err.message}`,
+        message: `${err.name}: ${err.message}`,
       }
     } else if (err instanceof EntityNotFoundError) {
       ctx.status = _400_CLIENT_ERROR
       ctx.body = {
-        message: `${err.name} ${err.message.split(': {\n')[0]}`,
+        message: `${err.name}: ${err.message.split(': {\n')[0]}`,
       }
     } else if (err instanceof IllegalActionError) {
       ctx.status = _409_CONFLICT
       ctx.body = {
-        message: `${err.name} ${err.message}`,
+        message: `${err.name}: ${err.message}`,
       }
     } else {
       ctx.status = _500_SERVER_ERROR
       ctx.body = {
-        message: `${err.name} ${err.message}`,
+        message: `${err.name}: ${err.message}`,
       }
     }
     ctx.app.emit('error', err, ctx)
