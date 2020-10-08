@@ -41,7 +41,7 @@ export function validateRequired<T extends Object, K extends keyof T>(
 
 export function validateNotEmpty(value: Array<any>, validateFn?: (unknown: any) => void): void
 export function validateNotEmpty(value: unknown, validateFn?: (unknown: unknown) => void): void {
-  if (!(value instanceof Array)) {
+  if (!Array.isArray(value)) {
     throw new IllegalArgumentErr(`${value} is not an array`)
   }
   if (value.length < 1) {
