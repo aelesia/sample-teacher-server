@@ -1,5 +1,11 @@
 # Setup
 
+## Requirements
+
+- NodeJS >=12.6.0
+- MySQL >=5.7 installed
+- yarn
+
 ## Install Dependencies
 
 - `yarn install`
@@ -8,7 +14,6 @@
 
 ### Pre-requisites
 
-- You must have MySQL >=5.7 installed
 - You must have a client capable of connecting to MySQL database and creating a new schema
 - You must have the following information available:
   - Username
