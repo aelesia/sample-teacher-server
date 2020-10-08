@@ -8,24 +8,36 @@ import { In } from '../../../db/Wrapper'
 import { router } from '../../app/config/Spring'
 import { _200_OKAY, _204_NO_CONTENT } from '../../consts/StatusCodes'
 import { extractMentionedEmails } from '../../utils/Util'
+import { validateEmail, validateNotEmpty } from '../../validators/Validators'
 import { commonStudents, suspendStudent } from './APIServices'
 
 export type CreateStudent = Pick<Student, 'first_name' | 'last_name' | 'email'>
 export type StudentResponse = Omit<Student, 'id' | 'created_date' | 'updated_date' | 'teaches_by'>
 
+type Req<T> = { request: { body: T } }
+
 type APIRegisterReq = {
   teacher: string
   students: string[]
 }
-router.post('/api/register', async (ctx) => {
-  const body: APIRegisterReq = ctx.request.body
+router.post(
+  '/api/register',
+  (ctx: Req<APIRegisterReq>, next) => {
+    const { students, teacher } = ctx.request.body
+    validateEmail(teacher)
+    validateNotEmpty(students, validateEmail)
+    return next()
+  },
+  async (ctx) => {
+    const body: APIRegisterReq = ctx.request.body
 
-  const teacher = await Teachers.findOneOrFail({ where: { email: body.teacher } })
-  const students = await Students.findInEmailOrFail(body.students)
-  await TeachesRepo.registerStudentsToTeachers(students, teacher)
+    const teacher = await Teachers.findOneOrFail({ where: { email: body.teacher } })
+    const students = await Students.findInEmailOrFail(body.students)
+    await TeachesRepo.registerStudentsToTeachers(students, teacher)
 
-  ctx.status = _204_NO_CONTENT
-})
+    ctx.status = _204_NO_CONTENT
+  }
+)
 
 type APICommonstudentsReq = {
   teacher: string | string[]
