@@ -1,40 +1,51 @@
-type uuid = string
-type email = string
-type name = string
+import { Regex } from '@aelesia/commons'
+import { IllegalArgumentErr } from '@aelesia/commons/dist/src/error/Error'
 
-export function validateUUID(value: unknown): value is uuid {
-  if (typeof value === 'string' && value.length === 36) {
-    return true
+export function validateUUID(value: string): void
+export function validateUUID(value: unknown): void {
+  if (typeof value !== 'string' || value.length !== 36) {
+    throw new IllegalArgumentErr(`${value} is not a uuid`)
   }
-  return false
 }
 
-export function validateEmail(value: unknown): value is email {
-  if (typeof value === 'string' && value.includes('@') && value.includes('.')) {
-    return true
+export function validateEmail(value: string): void
+export function validateEmail(value: unknown): void {
+  if (typeof value !== 'string' || !Regex.is.email(value)) {
+    throw new IllegalArgumentErr(`${value} is not a valid email address`)
   }
-  return false
+  return
 }
 
-export function validateName(value: unknown): value is name {
-  if (typeof value === 'string') {
-    return true
+export function validateString(value: string): void
+export function validateString(value: unknown): void {
+  if (typeof value !== 'string') {
+    throw new IllegalArgumentErr(`${value} is not a valid string`)
   }
-  return false
+  return
 }
 
-export function isString(value: unknown): value is string {
-  if (typeof value === 'string') {
-    return true
+export function validateRequired<T extends Object, K extends keyof T>(
+  value: T,
+  key: K,
+  validateFn?: (value: T[K]) => void
+): void {
+  if (value == null) {
+    throw new IllegalArgumentErr(`Invalid object`)
   }
-  return false
+  if (value[key] == null) {
+    throw new IllegalArgumentErr(`${key} is required`)
+  }
+  validateFn?.(value[key])
+  return
 }
 
-export function isStringArray(value: unknown): value is string[] {
-  if (!(value instanceof Array)) {
-    return false
-  } else if (value.length > 0 && typeof value[0] !== 'string') {
-    return false
+export function validateNotEmpty(value: Array<any>, validateFn?: (unknown: any) => void): void
+export function validateNotEmpty(value: unknown, validateFn?: (unknown: unknown) => void): void {
+  if (!Array.isArray(value)) {
+    throw new IllegalArgumentErr(`${value} is not an array`)
   }
-  return true
+  if (value.length < 1) {
+    throw new IllegalArgumentErr(`${value} must not be empty`)
+  }
+  value.forEach((it) => validateFn?.(it))
 }

@@ -19,7 +19,7 @@ export class ClientError extends Error {
  */
 export class IllegalActionError extends ClientError {
   constructor(msg?: string) {
-    super(`IllegalActionError: ${msg ?? ''}`)
+    super(msg ?? '')
     this.name = 'IllegalActionError'
     Object.setPrototypeOf(this, IllegalActionError.prototype)
   }

@@ -1,3 +1,4 @@
+import Faker from 'faker'
 import request from 'supertest'
 import { initialiseTestTransactions, runInTransaction } from 'typeorm-test-transactions'
 
@@ -111,5 +112,56 @@ describe('APIController', () => {
         expect(response.body.message).toContain('IllegalActionError')
       })
     )
+  })
+  describe('validations', () => {
+    test('invalid teacher email address', async () => {
+      const response = await request(app.callback())
+        .post('/api/register')
+        .send({
+          teacher: 'notanemailaddress',
+          students: [Faker.internet.email()],
+        })
+      expect(response.status).toBe(_400_CLIENT_ERROR)
+      expect(response.body.message).not.toBeNull()
+      expect(response.body.message).toContain('IllegalArgumentException')
+    })
+    test('invalid student email address', async () => {
+      const response = await request(app.callback())
+        .post('/api/register')
+        .send({
+          teacher: Faker.internet.email(),
+          students: ['not an email address'],
+        })
+      expect(response.status).toBe(_400_CLIENT_ERROR)
+      expect(response.body.message).not.toBeNull()
+      expect(response.body.message).toContain('IllegalArgumentException')
+    })
+    test('missing teacher', async () => {
+      const response = await request(app.callback())
+        .post('/api/register')
+        .send({
+          students: [Faker.internet.email()],
+        })
+      expect(response.status).toBe(_400_CLIENT_ERROR)
+      expect(response.body.message).not.toBeNull()
+      expect(response.body.message).toContain('IllegalArgumentException')
+    })
+    test('missing student', async () => {
+      const response = await request(app.callback()).post('/api/register').send({
+        teacher: Faker.internet.email(),
+      })
+      expect(response.status).toBe(_400_CLIENT_ERROR)
+      expect(response.body.message).not.toBeNull()
+      expect(response.body.message).toContain('IllegalArgumentException')
+    })
+    test('students is empty', async () => {
+      const response = await request(app.callback()).post('/api/register').send({
+        teacher: Faker.internet.email(),
+        students: [],
+      })
+      expect(response.status).toBe(_400_CLIENT_ERROR)
+      expect(response.body.message).not.toBeNull()
+      expect(response.body.message).toContain('IllegalArgumentException')
+    })
   })
 })

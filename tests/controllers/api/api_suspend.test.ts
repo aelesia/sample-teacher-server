@@ -1,3 +1,4 @@
+import Faker from 'faker'
 import request from 'supertest'
 import { initialiseTestTransactions, runInTransaction } from 'typeorm-test-transactions'
 
@@ -78,4 +79,20 @@ describe('/api/suspend', () => {
       expect(response.status).toBe(_204_NO_CONTENT)
     })
   )
+  describe('validations', () => {
+    test('invalid student email address', async () => {
+      const response = await request(app.callback()).post('/api/suspend').send({
+        student: 'notanemailaddress',
+      })
+      expect(response.status).toBe(_400_CLIENT_ERROR)
+      expect(response.body.message).not.toBeNull()
+      expect(response.body.message).toContain('IllegalArgumentException')
+    })
+    test('missing student', async () => {
+      const response = await request(app.callback()).post('/api/suspend').send({})
+      expect(response.status).toBe(_400_CLIENT_ERROR)
+      expect(response.body.message).not.toBeNull()
+      expect(response.body.message).toContain('IllegalArgumentException')
+    })
+  })
 })
