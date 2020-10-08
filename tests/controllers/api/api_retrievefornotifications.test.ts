@@ -147,4 +147,43 @@ describe('APIController', () => {
       })
     )
   })
+  describe('validations', () => {
+    test('missing teacher', async () => {
+      const response = await request(app.callback())
+        .post('/api/retrievefornotifications')
+        .send({
+          notification: `Hey everybody @${student_miche.email} @${student_agnes.email}`,
+        })
+      expect(response.status).toBe(_400_CLIENT_ERROR)
+      expect(response.body.message).not.toBeNull()
+      expect(response.body.message).toContain('IllegalArgumentException')
+    })
+    test('missing notification', async () => {
+      const response = await request(app.callback()).post('/api/retrievefornotifications').send({
+        teacher: teacher_ken.email,
+      })
+      expect(response.status).toBe(_400_CLIENT_ERROR)
+      expect(response.body.message).not.toBeNull()
+      expect(response.body.message).toContain('IllegalArgumentException')
+    })
+    test('not a valid teacher email', async () => {
+      const response = await request(app.callback())
+        .post('/api/retrievefornotifications')
+        .send({
+          teacher: 'notanemail',
+          notification: `Hey everybody @${student_miche.email} @${student_agnes.email}`,
+        })
+      expect(response.status).toBe(_400_CLIENT_ERROR)
+      expect(response.body.message).not.toBeNull()
+      expect(response.body.message).toContain('IllegalArgumentException')
+    })
+    test('not a valid notification', async () => {
+      const response = await request(app.callback()).post('/api/retrievefornotifications').send({
+        notification: 123456,
+      })
+      expect(response.status).toBe(_400_CLIENT_ERROR)
+      expect(response.body.message).not.toBeNull()
+      expect(response.body.message).toContain('IllegalArgumentException')
+    })
+  })
 })

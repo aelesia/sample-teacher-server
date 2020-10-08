@@ -86,4 +86,19 @@ describe('/api/commonstudents', () => {
     expect(response.body.message).not.toBeNull()
     expect(response.body.message).toContain('EntityOneOrMoreNotFoundError')
   })
+
+  describe('validations', () => {
+    test('invalid email address', async () => {
+      const response = await request(app.callback()).get('/api/commonstudents?teacher=notanemailaddress')
+      expect(response.status).toBe(_400_CLIENT_ERROR)
+      expect(response.body.message).not.toBeNull()
+      expect(response.body.message).toContain('IllegalArgumentException')
+    })
+    test('missing teacher', async () => {
+      const response = await request(app.callback()).get('/api/commonstudents?notateacher=not@teach.er')
+      expect(response.status).toBe(_400_CLIENT_ERROR)
+      expect(response.body.message).not.toBeNull()
+      expect(response.body.message).toContain('IllegalArgumentException')
+    })
+  })
 })
