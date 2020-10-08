@@ -96,3 +96,7 @@ Due to time constraints and limited knowledge (this is my first time using Koa &
   - This is needed otherwise there might be DB pollution / test conflicts
 - Endpoints for creating students / teachers
   - This is so the app can be ran without the user having to modify the DB
+- Env variables need to be encrypted at minimum if checked into source control
+  - As there is no sensitive information now, there is no harm checking it in now
+  - However this will not be done in an actual company environment due to the risk of someone messing up and committing the file by accident.
+  - Ideally, the best case for handling environment variables would be through some service like Hashicorp Vault or AWS Keystore
