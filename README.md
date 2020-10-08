@@ -29,7 +29,7 @@ CREATE SCHEMA `sample_teacher_server_test` DEFAULT CHARACTER SET utf8mb4 ;
 
 ### ormconfig.js`
 
-1) Open the file located in `env/local/ormconfig.local.copy.js`
+1) Open the file located in `env/local/ormconfig.local.js`
 2) Replace the fields below with your own host, port, username, password
 3) Save
 
