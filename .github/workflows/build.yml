@@ -29,54 +29,22 @@ jobs:
 
       - run: yarn run compile
 
-  test_coverage:
-    needs: compile
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12'
-
-      - name: Cache node_modules
-        id: cache_node_modules
-        uses: actions/cache@v1
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-      - if: steps.cache_node_modules.outputs.cache-hit != 'true'
-        run: yarn install
-
-      - run: yarn run test_coverage
-
-  deploy_aws:
-    if: contains(github.ref, 'refs/heads/develop') || contains(github.ref, 'refs/heads/master') || contains(github.ref, 'refs/heads/ci')
-    needs: [compile,test_coverage]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12'
-
-      - name: Cache node_modules
-        id: cache_node_modules
-        uses: actions/cache@v1
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-      - if: steps.cache_node_modules.outputs.cache-hit != 'true'
-        run: yarn install
-
-      - run: mkdir ~/.aws
-
-      - run: |
-          echo "[default]
-          aws_access_key_id=${{ secrets.AWS_DEPLOY_KEY }}
-          aws_secret_access_key=${{ secrets.AWS_DEPLOY_SECRET }}" >> ~/.aws/credentials
-
-      - if: contains(github.ref, 'refs/heads/develop')
-        run: ENV=develop yarn deploy_aws
-
-      - if: contains(github.ref, 'refs/heads/master')
-        run: ENV=production yarn deploy_aws
+#  test_coverage:
+#    needs: compile
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v1
+#      - uses: actions/setup-node@v1
+#        with:
+#          node-version: '12'
+#
+#      - name: Cache node_modules
+#        id: cache_node_modules
+#        uses: actions/cache@v1
+#        with:
+#          path: node_modules
+#          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+#      - if: steps.cache_node_modules.outputs.cache-hit != 'true'
+#        run: yarn install
+#
+#      - run: yarn run test_coverage
