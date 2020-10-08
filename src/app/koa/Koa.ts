@@ -1,3 +1,4 @@
+import { IllegalArgumentErr } from '@aelesia/commons/dist/src/error/Error'
 import * as Router from 'koa-router'
 import { EntityNotFoundError } from 'typeorm/error/EntityNotFoundError'
 
@@ -24,6 +25,11 @@ export const errorHandler: Router.IMiddleware = async (ctx, next) => {
       }
     } else if (err instanceof IllegalActionError) {
       ctx.status = _409_CONFLICT
+      ctx.body = {
+        message: `${err.name}: ${err.message}`,
+      }
+    } else if (err instanceof IllegalArgumentErr) {
+      ctx.status = _400_CLIENT_ERROR
       ctx.body = {
         message: `${err.name}: ${err.message}`,
       }
