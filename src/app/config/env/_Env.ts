@@ -2,23 +2,6 @@ import { Err, Str } from '@aelesia/commons'
 
 type KeysMatching<T, V> = { [K in keyof T]-?: T[K] extends V ? K : never }[keyof T]
 
-export function envJSON2(envKey: string): any {
-  const envvar = process.env[envKey]
-  if (envvar == null || envvar === '') {
-    if (process.env['NODE_ENV'] === 'test' || process.env['ENVIRONMENT'] === 'test') {
-      return 'TEST_ENV_VAR'
-    }
-    throw new Err.UninitializedErr(`[Config.${envKey}] Not set in .env`)
-  }
-  if (
-    (envvar[0] === '{' && envvar[envvar.length - 1] === '}') ||
-    (envvar[0] === '[' && envvar[envvar.length - 1] === ']')
-  ) {
-    return JSON.parse(envvar)
-  }
-  return envvar
-}
-
 export function env<T>() {
   return (key: KeysMatching<T, string>): string => {
     const envvar = process.env[key as any]

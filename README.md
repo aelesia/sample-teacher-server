@@ -74,3 +74,25 @@ Port 4000: `PORT=4000 yarn start`
 - Run `ENV=<env> yarn db:generate -n <NameOfMigration>`
 - Run `ENV=<env> yarn db:migrate`
 
+# Tests
+
+`yarn test`
+
+OR
+
+`yarn test_coverage`
+
+# Roadmap
+
+Due to time constraints and limited knowledge (this is my first time using Koa & TypeORM), the following features have not been implemented:
+
+- Parameter Validation
+- Proper distribution build instead of using `ts-node`
+- Tests running in CI
+  - It requires a DB to be setup with it
+- Tests running in full transaction mode
+  - Unfortunately some queries don't seem to run in transaction mode
+  - More time needs to be spent to investigate it
+  - This is needed otherwise there might be DB pollution / test conflicts
+- Endpoints for creating students / teachers
+  - This is so the app can be ran without the user having to modify the DB
