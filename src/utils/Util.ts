@@ -17,3 +17,10 @@ export function extractMentionedEmails(notification: string): string[] {
 export function mapKey<T extends Object, K extends keyof T>(arr: T[], key: K): T[K][] {
   return arr.map((it) => it[key])
 }
+
+export function arrayify<T>(maybeArray: T | T[]): T[] {
+  if (maybeArray instanceof Array) {
+    return maybeArray
+  }
+  return [maybeArray]
+}

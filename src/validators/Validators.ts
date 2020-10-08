@@ -24,12 +24,18 @@ export function validateString(value: unknown): void {
   return
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export function validateRequired(value: string | number | boolean | Object): void
-export function validateRequired(value: unknown): void {
+export function validateRequired<T extends Object, K extends keyof T>(
+  value: T,
+  key: K,
+  validateFn?: (value: T[K]) => void
+): void {
   if (value == null) {
-    throw new IllegalArgumentErr(`${value} is required`)
+    throw new IllegalArgumentErr(`Invalid object`)
   }
+  if (value[key] == null) {
+    throw new IllegalArgumentErr(`${key} is required`)
+  }
+  validateFn?.(value[key])
   return
 }
 
