@@ -20,7 +20,7 @@ type APIRegisterReq = {
 router.post('/api/register', async (ctx) => {
   const body: APIRegisterReq = ctx.request.body
 
-  const teacher = await Teachers.findOneOrFail({ where: { email: body } })
+  const teacher = await Teachers.findOneOrFail({ where: { email: body.teacher } })
   const students = await Students.findInEmailOrFail(body.students)
   await TeachesRepo.registerStudentsToTeachers(students, teacher)
 
