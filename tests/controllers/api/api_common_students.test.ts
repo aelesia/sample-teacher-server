@@ -51,7 +51,7 @@ describe('/api/commonstudents', () => {
   })
 
   test('should return 3 students under teacher ken', async () => {
-    const response = await request(app.callback()).get('/api/commonstudents?teachers=teacherken@gmail.com')
+    const response = await request(app.callback()).get('/api/commonstudents?teacher=teacherken@gmail.com')
     expect(response.status).toBe(_200_OKAY)
     expect(response.body.students).toBeInstanceOf(Array)
     expect(response.body.students).toHaveLength(3)
@@ -61,7 +61,7 @@ describe('/api/commonstudents', () => {
   })
 
   test('should return 2 students under teacher joe', async () => {
-    const response = await request(app.callback()).get('/api/commonstudents?teachers=teacherjoe@gmail.com')
+    const response = await request(app.callback()).get('/api/commonstudents?teacher=teacherjoe@gmail.com')
     expect(response.status).toBe(_200_OKAY)
     expect(response.body.students).toBeInstanceOf(Array)
     expect(response.body.students).toHaveLength(2)
@@ -71,7 +71,7 @@ describe('/api/commonstudents', () => {
 
   test('should return 2 students under teacher joe & ken', async () => {
     const response = await request(app.callback()).get(
-      '/api/commonstudents?teachers=teacherjoe@gmail.com&teachers=teacherken@gmail.com'
+      '/api/commonstudents?teacher=teacherjoe@gmail.com&teacher=teacherken@gmail.com'
     )
     expect(response.status).toBe(_200_OKAY)
     expect(response.body.students).toBeInstanceOf(Array)
@@ -81,7 +81,7 @@ describe('/api/commonstudents', () => {
   })
 
   test('incorrect teacher email', async () => {
-    const response = await request(app.callback()).get('/api/commonstudents?teachers=wrong@email.com')
+    const response = await request(app.callback()).get('/api/commonstudents?teacher=wrong@email.com')
     expect(response.status).toBe(_400_CLIENT_ERROR)
     expect(response.body.message).not.toBeNull()
     expect(response.body.message).toContain('EntityOneOrMoreNotFoundError')
