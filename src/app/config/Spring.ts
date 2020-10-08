@@ -1,12 +1,21 @@
-import { Sample } from '../../db/model/Sample'
-import { AwsDynamodb } from '@aelesia/commons/dist/src/aws/dynamodb/AwsDynamodb'
-import { Cfg } from './Cfg'
-import { NoSQLDatabase } from '@aelesia/commons/dist/src/aws/dynamodb/NoSQLDatabase'
+import Koa from 'koa'
+import bodyParser from 'koa-bodyparser'
+import Router from 'koa-router'
 
-export const Spring = {
-  DB: new AwsDynamodb<Sample>(Cfg.AWSC_REGION, Cfg.DB_SAMPLE) as NoSQLDatabase<Sample>
-}
+import { errorHandler, errorProcessing } from '../koa/Koa'
+import { Cfg } from './Config'
 
-require('./spring/SpringConfig')
+export const router = new Router()
+export const app = (() => {
+  const koa = new Koa()
 
-export const DB = Spring.DB
+  require('../../controllers/api/APIController')
+
+  koa.use(bodyParser()).use(errorHandler).use(router.routes()).use(router.allowedMethods())
+
+  if (Cfg.ENVIRONMENT !== 'test') {
+    koa.on('error', errorProcessing)
+  }
+
+  return koa
+})()
