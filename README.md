@@ -21,7 +21,7 @@
 1) Open the file located in `env/local/ormconfig.local.js`
 2) Replace the fields below with your own host, port, username, password
 3) Save
-
+4) Do the same for env/test/ormconfig.test.js
 ```
 host: 'localhost',
 port: 3306,
@@ -45,6 +45,7 @@ CREATE SCHEMA `sample_teacher_server_test` DEFAULT CHARACTER SET utf8mb4 ;
 - Open your terminal to the root of this project
 - Run the following command to perform migrations
   - `ENV=local yarn db:migrate`
+  - `ENV=test yarn db:migrate`
   
 ### Seeding (Optional)
 

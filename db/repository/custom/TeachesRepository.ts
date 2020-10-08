@@ -4,6 +4,7 @@ import { IllegalActionError } from '../../../src/errors/Error'
 import { Student } from '../../entity/Student'
 import { Teacher } from '../../entity/Teacher'
 import { Teaches } from '../../entity/Teaches'
+import { isDuplicateEntryError } from '../../wrappers/ErrorWrapper'
 
 @EntityRepository(Teaches)
 export class TeachesRepository extends Repository<Teaches> {
@@ -16,7 +17,7 @@ export class TeachesRepository extends Repository<Teaches> {
         })
     )
     return this.save(teaches).catch((err: Error) => {
-      if (err.name === 'QueryFailedError' && err.message.includes('duplicate key value violates unique constraint')) {
+      if (isDuplicateEntryError(err)) {
         throw new IllegalActionError('One or more students is already registered to this teacher')
       }
       throw err

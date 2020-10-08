@@ -55,11 +55,9 @@ describe('/api/commonstudents', () => {
     expect(response.status).toBe(_200_OKAY)
     expect(response.body.students).toBeInstanceOf(Array)
     expect(response.body.students).toHaveLength(3)
-    expect(response.body.students).toEqual([
-      'commonstudent1@gmail.com',
-      'commonstudent2@gmail.com',
-      'student_only_under_teacher_ken@gmail.com',
-    ])
+    expect(response.body.students).toContain('commonstudent1@gmail.com')
+    expect(response.body.students).toContain('commonstudent2@gmail.com')
+    expect(response.body.students).toContain('student_only_under_teacher_ken@gmail.com')
   })
 
   test('should return 2 students under teacher joe', async () => {
@@ -67,7 +65,8 @@ describe('/api/commonstudents', () => {
     expect(response.status).toBe(_200_OKAY)
     expect(response.body.students).toBeInstanceOf(Array)
     expect(response.body.students).toHaveLength(2)
-    expect(response.body.students).toEqual(['commonstudent1@gmail.com', 'commonstudent2@gmail.com'])
+    expect(response.body.students).toContain('commonstudent1@gmail.com')
+    expect(response.body.students).toContain('commonstudent2@gmail.com')
   })
 
   test('should return 2 students under teacher joe & ken', async () => {
@@ -77,7 +76,8 @@ describe('/api/commonstudents', () => {
     expect(response.status).toBe(_200_OKAY)
     expect(response.body.students).toBeInstanceOf(Array)
     expect(response.body.students).toHaveLength(2)
-    expect(response.body.students).toEqual(['commonstudent1@gmail.com', 'commonstudent2@gmail.com'])
+    expect(response.body.students).toContain('commonstudent1@gmail.com')
+    expect(response.body.students).toContain('commonstudent2@gmail.com')
   })
 
   test('incorrect teacher email', async () => {

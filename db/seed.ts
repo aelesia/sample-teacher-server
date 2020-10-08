@@ -11,13 +11,27 @@ import { Teaches } from './entity/Teaches'
 
 createConnection()
   .then(async (connection) => {
-    const students = StudentFactory.array(50).map((it) => new Student(it))
+    const students = StudentFactory.array(50).map(
+      (it) =>
+        new Student({
+          first_name: it.first_name,
+          last_name: it.last_name,
+          email: it.email,
+        })
+    )
     for (const student of students) {
       await connection.manager.save(student)
     }
     console.info(`Created ${students.length} students`)
 
-    const teachers = TeacherFactory.array(5).map((it) => new Teacher(it))
+    const teachers = TeacherFactory.array(5).map(
+      (it) =>
+        new Teacher({
+          first_name: it.first_name,
+          last_name: it.last_name,
+          email: it.email,
+        })
+    )
     for (const teacher of teachers) {
       await connection.manager.save(teacher)
     }
@@ -48,5 +62,7 @@ createConnection()
       }
     }
     console.info(`Suspended students`)
+
+    console.info('You may now press Ctrl-C to exit')
   })
   .catch((error) => console.error(error))
