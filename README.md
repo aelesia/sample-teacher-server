@@ -87,6 +87,11 @@ OR
 
 `yarn test_coverage`
 
+# Hosted API
+
+- Please view Postman file for more details:
+  - `docs/postman/heroku.TeacherServer.postman_collection.json`
+
 # Postman
 
 Postman files are located under: `docs/postman`

@@ -1,0 +1,146 @@
+{
+	"info": {
+		"_postman_id": "d66acb8d-07d7-42d8-813b-c50d81b67ac3",
+		"name": "TeacherServer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Retrieve For Notifications",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"teacher\":  \"Pierre22@hotmail.com\",\n  \"notification\": \"Hello students! @Calista_Stanton@hotmail.com @Haylie.Abbott62@yahoo.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://pure-refuge-82684.herokuapp.com/api/retrievefornotifications",
+					"protocol": "https",
+					"host": [
+						"pure-refuge-82684",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"retrievefornotifications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Student to Teacher",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"teacher\": \"Nedra87@gmail.com\",\n    \"students\": [\n        \"Abdul.Koch@yahoo.com\",\n        \"Marlen_Willms@hotmail.com\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://pure-refuge-82684.herokuapp.com/api/register",
+					"protocol": "https",
+					"host": [
+						"pure-refuge-82684",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Suspend",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"student\" : \"Haylie.Abbott62@yahoo.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://pure-refuge-82684.herokuapp.com/api/suspend",
+					"protocol": "https",
+					"host": [
+						"pure-refuge-82684",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"suspend"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Common Students",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://pure-refuge-82684.herokuapp.com/api/commonstudents?teacher=Oleta9@yahoo.com&teacher=Pierre22@hotmail.com",
+					"protocol": "https",
+					"host": [
+						"pure-refuge-82684",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"commonstudents"
+					],
+					"query": [
+						{
+							"key": "teacher",
+							"value": "Oleta9@yahoo.com"
+						},
+						{
+							"key": "teacher",
+							"value": "Pierre22@hotmail.com"
+						},
+						{
+							"key": "teacher",
+							"value": "Aurelia_Zemlak@yahoo.com",
+							"disabled": true
+						},
+						{
+							"key": "teacher",
+							"value": "Paolo.Yundt36@hotmail.com",
+							"disabled": true
+						},
+						{
+							"key": "teacher",
+							"value": "Melvin47@yahoo.com",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
