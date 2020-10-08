@@ -9,7 +9,6 @@ export class Teacher extends BaseEntity<Teacher> {
   id!: number
 
   @Column({ generated: 'uuid', unique: true })
-  @Index()
   uuid!: string
 
   @Column({ type: 'varchar', length: 32 })
@@ -19,7 +18,6 @@ export class Teacher extends BaseEntity<Teacher> {
   last_name!: string
 
   @Column({ type: 'varchar', length: 64, unique: true })
-  @Index()
   email!: string
 
   @OneToMany((_type) => Teaches, (teaches) => teaches.teacher)

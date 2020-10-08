@@ -16,17 +16,6 @@
   - Network Address
   - Port
 
-### Creating Database
-
-1) Start your MySQL database
-2) Open your MySQL database in your preferred client
-3) Run the following scripts:
-
-```
-CREATE SCHEMA `sample_teacher_server` DEFAULT CHARACTER SET utf8mb4 ;
-CREATE SCHEMA `sample_teacher_server_test` DEFAULT CHARACTER SET utf8mb4 ;
-```
-
 ### ormconfig.js`
 
 1) Open the file located in `env/local/ormconfig.local.js`
@@ -38,6 +27,17 @@ host: 'localhost',
 port: 3306,
 username: 'root',
 password: '',
+```
+
+### Creating Database
+
+1) Start your MySQL database
+2) Open your MySQL database in your preferred client
+3) Run the following scripts:
+
+```
+CREATE SCHEMA `sample_teacher_server` DEFAULT CHARACTER SET utf8mb4 ;
+CREATE SCHEMA `sample_teacher_server_test` DEFAULT CHARACTER SET utf8mb4 ;
 ```
 
 ### Migrations
